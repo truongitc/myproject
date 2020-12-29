@@ -1,5 +1,6 @@
 package co.gin.myproject.controller;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,10 +32,11 @@ import co.gin.myproject.payload.response.MessageResponse;
 import co.gin.myproject.repository.RoleRepository;
 import co.gin.myproject.repository.UserRepository;
 import co.gin.myproject.service.UserDetailsImpl;
+import co.gin.myproject.utils.Constants;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(Constants.API_DOMAIN + "auth")
 public class AuthController {
 
 	@Autowired
@@ -81,7 +83,7 @@ public class AuthController {
 
 		// Create new user's account
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-				encoder.encode(signUpRequest.getPassword()));
+				encoder.encode(signUpRequest.getPassword()), new Date(), new Date());
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
