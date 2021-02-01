@@ -21,4 +21,12 @@ public class PagedVO {
 	@JsonProperty("size")
 	private int pageSize;
 
+	private int nextPage;
+
+	private int previousPage;
+
+	private int lastPage;
+
+	private int firstPage;
+
 }

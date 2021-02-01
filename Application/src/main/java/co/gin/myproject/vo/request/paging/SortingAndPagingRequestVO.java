@@ -14,6 +14,4 @@ public class SortingAndPagingRequestVO {
 	private int size;
 
 	private String sortKey;
-
-	private String sortDir;
 }

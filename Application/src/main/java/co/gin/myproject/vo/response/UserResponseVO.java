@@ -1,7 +1,9 @@
 package co.gin.myproject.vo.response;
 
 import java.util.Date;
+import java.util.Set;
 
+import co.gin.myproject.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ public class UserResponseVO {
 
 	private String email;
 
-	private Integer role;
+	private Set<Role> role;
 
 	private Date createdAt;
 

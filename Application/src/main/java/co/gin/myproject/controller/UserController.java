@@ -1,8 +1,7 @@
 package co.gin.myproject.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.gin.myproject.service.user.UserService;
 import co.gin.myproject.utils.Constants;
-import co.gin.myproject.utils.ResponseUtil;
 import co.gin.myproject.vo.request.paging.SortingAndPagingRequestVO;
 import co.gin.myproject.vo.response.CommonResponse;
 import co.gin.myproject.vo.response.UserResponseVO;
@@ -27,18 +25,16 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping
-	public ResponseEntity<Map<String, Object>> getPagingUsers(
+	public ResponseEntity<Object> getPagingUsers(
 			@RequestParam(required = false, defaultValue = Constants.DEFAULT_PAGE) Integer page,
 			@RequestParam(required = false, defaultValue = Constants.DEFAULT_SIZE) Integer size,
-			@RequestParam(required = false) String sortKey, @RequestParam(required = false) String sortDir) {
+			@RequestParam(required = false) String sortKey) {
 
 		// Get paging request VO
-		SortingAndPagingRequestVO pagingRequestVO = new SortingAndPagingRequestVO(page, size, sortKey, sortDir);
+		SortingAndPagingRequestVO pagingRequestVO = new SortingAndPagingRequestVO(page, size, sortKey);
 
 		CommonResponse<PagedResult<UserResponseVO>> userPagedResponse = userService.getPagingUsers(pagingRequestVO);
 
-		// logger.info("Response get users: {}", userPagedResponse);
-		return ResponseUtil.setResponseData(userPagedResponse.getStatusCode(), userPagedResponse.getData(),
-				userPagedResponse.getMessage());
+		return new ResponseEntity<>(userPagedResponse, HttpStatus.OK);
 	}
 }

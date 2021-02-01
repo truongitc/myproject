@@ -15,6 +15,4 @@ public class PagedResult<T> {
 
 	private List<T> elements;
 
-	private T total;
-
 }

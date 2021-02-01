@@ -6,7 +6,9 @@ public final class Constants {
 	public static final String API_DOMAIN = "/api/";
 
 	// Paging
-	public static final String DEFAULT_PAGE = "1";
+	public static final String DEFAULT_PAGE = "0";
 
 	public static final String DEFAULT_SIZE = "100";
+	
+	public static final int PAGE_NUM = 1;
 }

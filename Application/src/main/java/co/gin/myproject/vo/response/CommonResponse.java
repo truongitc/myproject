@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommonResponse<T> {
 
-	private Integer statusCode;
-
 	private T data;
 
-	private String message;
 }

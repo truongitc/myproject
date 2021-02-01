@@ -1,7 +1,12 @@
 package co.gin.myproject.vo.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import co.gin.myproject.model.User;
 import co.gin.myproject.utils.Constants;
 import co.gin.myproject.vo.request.paging.SortingAndPagingRequestVO;
+import co.gin.myproject.vo.response.UserResponseVO;
 
 public final class PagingConverter {
 
@@ -11,10 +16,11 @@ public final class PagingConverter {
 
 	public static SortingAndPagingRequestVO getUserPagingRequestVO(SortingAndPagingRequestVO pagingVO) {
 		SortingAndPagingRequestVO sortingAndPagingRequestVO = new SortingAndPagingRequestVO();
-		sortingAndPagingRequestVO.setPage(pagingVO.getPage() > 0 ? pagingVO.getPage() : Integer.valueOf(Constants.DEFAULT_PAGE));
-		sortingAndPagingRequestVO.setSize(pagingVO.getSize() > 0 ? pagingVO.getSize() : Integer.valueOf(Constants.DEFAULT_SIZE));
+		sortingAndPagingRequestVO
+				.setPage(pagingVO.getPage() > 0 ? pagingVO.getPage() -1 : Integer.valueOf(Constants.DEFAULT_PAGE));
+		sortingAndPagingRequestVO
+				.setSize(pagingVO.getSize() > 0 ? pagingVO.getSize() : Integer.valueOf(Constants.DEFAULT_SIZE));
 		sortingAndPagingRequestVO.setSortKey(mapUserSortKey(pagingVO.getSortKey()));
-		sortingAndPagingRequestVO.setSortDir(pagingVO.getSortDir());
 
 		return sortingAndPagingRequestVO;
 	}
@@ -39,4 +45,26 @@ public final class PagingConverter {
 			return null;
 		}
 	}
+
+	public static List<UserResponseVO> mapUsersResponseVO(List<User> content) {
+
+		List<UserResponseVO> usersResponseVO = new ArrayList<UserResponseVO>();
+		for (int i = 0; i < content.size(); i++) {
+			User user = content.get(i);
+			UserResponseVO responseVO = new UserResponseVO();
+
+			if (user != null) {
+				responseVO.setUserName(user.getUserName());
+				responseVO.setEmail(user.getEmail());
+				responseVO.setCreatedAt(user.getCreatedAt());
+				responseVO.setUpdatedAt(user.getUpdatedAt());
+				responseVO.setRole(user.getRoles());
+				usersResponseVO.add(responseVO);
+			}
+
+		}
+
+		return usersResponseVO;
+	}
+
 }
